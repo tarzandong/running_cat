@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="./jsm/jquery-3.5.1.min.js"></script>
+		<style>
+			
+			.cat{
+				position: absolute;
+				display: inline-block;
+				width:32px;
+				height: 46px;
+				background-image: url('img/sprite.png');
+				/* 设置背景图片 */
+				background-repeat: no-repeat;
+				/* 设置为不平铺 */
+				
+				
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id='box'></div>
+		<script>
+			let d1={'background-position': '0 0'}
+			
+			let d2={'background-position': '-32px 0'}
+			
+			let d3={'background-position': '-64px 0'}
+			
+			let d4={'background-position': '-96px 0'}
+			
+			let l1={'background-position': '0 -46px'}
+			
+			let l2={'background-position': '-32px -46px'}
+			
+			let l3={'background-position': '-64px -46px'}
+			
+			let l4={'background-position': '-96px -46px'}
+			
+			let r1={'background-position': '0 -92px'}
+			
+			let r2={'background-position': '-32px -92px'}
+			
+			let r3={'background-position': '-64px -92px'}
+			
+			let r4={'background-position': '-96px -92px'}
+			
+			let u1={'background-position': '0 -140px'}
+			
+			let u2={'background-position': '-32px -140px'}
+			
+			let u3={'background-position': '-64px -140px'}
+			
+			let u4={'background-position': '-96px -140px'}
+			
+			
+			
+			class Newcat {
+				
+				constructor(){
+					this.catdiv = $('<div></div>')
+					this.catdiv.addClass('cat')
+					let poX = Math.floor(Math.random() * 50)
+					let poY = Math.floor(Math.random() * 50)
+					this.catdiv.offset({
+						left: 600+poX,
+						top: 400+poY
+					})
+					$('body').append(this.catdiv)
+				}
+				
+				
+				
+				move(){
+					let that=this
+					that.rdir = Math.floor(Math.random() * 4)
+					that.rd2='+='+(Math.floor(Math.random()*3)-1)*40				
+					console.log(that.rd2)
+					switch (that.rdir) {
+						case 0:
+							this.catdiv.css(d1)
+							this.catdiv.animate({top: '+=40','left':that.rd2},'fast',function(){$(this).css(d2);})
+								.animate({top: '+=40px','left':that.rd2},'fast',function(){$(this).css(d3)})
+								.animate({top: '+=40px','left':that.rd2},'fast',function(){$(this).css(d4)})
+								.animate({top: '+=40px','left':that.rd2},'fast',function(){that.move()})
+							break
+						case 1:
+							this.catdiv.css(r1)
+							that.catdiv.animate({left: '+=40px'},'fast',function(){$(this).css(r2)})
+								.animate({left: '+=40px'},'fast',function(){$(this).css(r3)})
+								.animate({left: '+=40px'},'fast',function(){$(this).css(r4)})
+								.animate({left: '+=40px'},'fast',function(){that.move()})
+							
+							break
+						case 2:
+							this.catdiv.css(l1)
+							that.catdiv.animate({left: '-=40px'},'fast',function(){$(this).css(l2)})
+								.animate({left: '-=40px'},'fast',function(){$(this).css(l3)})
+								.animate({left: '-=40px'},'fast',function(){$(this).css(l4)})
+								.animate({left: '-=40px'},'fast',function(){that.move()})
+							
+							break
+						default:
+							this.catdiv.css(u1)
+							that.catdiv.animate({top: '-=40px','left':that.rd2},'fast',function(){$(this).css(u2)})
+								.animate({top: '-=40px','left':that.rd2},'fast',function(){$(this).css(u3)})
+								.animate({top: '-=40px','left':that.rd2},'fast',function(){$(this).css(u4)})
+								.animate({top: '-=40px','left':that.rd2},'fast',function(){that.move()})
+							break
+					}
+					
+				}
+			}
+			
+			for (let i=0;i<10;i++){
+				let cattemp=new Newcat()
+				cattemp.move()				
+			}
+			
+			setTimeout(function(){
+				for (let i=0;i<10;i++){
+					let cattemp=new Newcat()
+					cattemp.move()					
+				}
+				setTimeout(function(){
+					for (let i=0;i<10;i++){
+						let cattemp=new Newcat()
+						cattemp.move()						
+					}
+				},500)
+			},500)
+			
+			
+			
+		</script>
+		
+		
+	</body>
+</html>
